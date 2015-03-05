@@ -1,2 +1,2 @@
-# AGEqualizerIndicatorView
+# AGAudioIndicatorView
 Indicator used to represent the play/pause state of audio.
