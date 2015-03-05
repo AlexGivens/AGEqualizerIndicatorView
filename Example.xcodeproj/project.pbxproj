@@ -7,26 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A52D9D9C1AA7FBB500010F23 /* AGEqualizerIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A52D9D9B1AA7FBB500010F23 /* AGEqualizerIndicatorView.m */; };
 		A54F19CC1AA7EB5500518776 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A54F19CB1AA7EB5500518776 /* main.m */; };
 		A54F19CF1AA7EB5500518776 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A54F19CE1AA7EB5500518776 /* AppDelegate.m */; };
 		A54F19D21AA7EB5500518776 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A54F19D11AA7EB5500518776 /* ViewController.m */; };
 		A54F19D51AA7EB5500518776 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A54F19D31AA7EB5500518776 /* Main.storyboard */; };
 		A54F19D71AA7EB5500518776 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A54F19D61AA7EB5500518776 /* Images.xcassets */; };
 		A54F19DA1AA7EB5500518776 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A54F19D81AA7EB5500518776 /* LaunchScreen.xib */; };
-		A54F19E61AA7EB5500518776 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A54F19E51AA7EB5500518776 /* ExampleTests.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		A54F19E01AA7EB5500518776 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A54F19BE1AA7EB5500518776 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A54F19C51AA7EB5500518776;
-			remoteInfo = Example;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		A52D9D9A1AA7FBB500010F23 /* AGEqualizerIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGEqualizerIndicatorView.h; path = AGEqualizerIndicatorView/AGEqualizerIndicatorView.h; sourceTree = SOURCE_ROOT; };
+		A52D9D9B1AA7FBB500010F23 /* AGEqualizerIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGEqualizerIndicatorView.m; path = AGEqualizerIndicatorView/AGEqualizerIndicatorView.m; sourceTree = SOURCE_ROOT; };
 		A54F19C61AA7EB5500518776 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A54F19CA1AA7EB5500518776 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A54F19CB1AA7EB5500518776 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -37,20 +29,10 @@
 		A54F19D41AA7EB5500518776 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A54F19D61AA7EB5500518776 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A54F19D91AA7EB5500518776 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		A54F19DF1AA7EB5500518776 /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A54F19E41AA7EB5500518776 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A54F19E51AA7EB5500518776 /* ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A54F19C31AA7EB5500518776 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A54F19DC1AA7EB5500518776 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -64,7 +46,6 @@
 			isa = PBXGroup;
 			children = (
 				A54F19C81AA7EB5500518776 /* Example */,
-				A54F19E21AA7EB5500518776 /* ExampleTests */,
 				A54F19C71AA7EB5500518776 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,7 +54,6 @@
 			isa = PBXGroup;
 			children = (
 				A54F19C61AA7EB5500518776 /* Example.app */,
-				A54F19DF1AA7EB5500518776 /* ExampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,6 +68,8 @@
 				A54F19D31AA7EB5500518776 /* Main.storyboard */,
 				A54F19D61AA7EB5500518776 /* Images.xcassets */,
 				A54F19D81AA7EB5500518776 /* LaunchScreen.xib */,
+				A52D9D9A1AA7FBB500010F23 /* AGEqualizerIndicatorView.h */,
+				A52D9D9B1AA7FBB500010F23 /* AGEqualizerIndicatorView.m */,
 				A54F19C91AA7EB5500518776 /* Supporting Files */,
 			);
 			path = Example;
@@ -98,23 +80,6 @@
 			children = (
 				A54F19CA1AA7EB5500518776 /* Info.plist */,
 				A54F19CB1AA7EB5500518776 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		A54F19E21AA7EB5500518776 /* ExampleTests */ = {
-			isa = PBXGroup;
-			children = (
-				A54F19E51AA7EB5500518776 /* ExampleTests.m */,
-				A54F19E31AA7EB5500518776 /* Supporting Files */,
-			);
-			path = ExampleTests;
-			sourceTree = "<group>";
-		};
-		A54F19E31AA7EB5500518776 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				A54F19E41AA7EB5500518776 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -139,24 +104,6 @@
 			productReference = A54F19C61AA7EB5500518776 /* Example.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A54F19DE1AA7EB5500518776 /* ExampleTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A54F19EC1AA7EB5500518776 /* Build configuration list for PBXNativeTarget "ExampleTests" */;
-			buildPhases = (
-				A54F19DB1AA7EB5500518776 /* Sources */,
-				A54F19DC1AA7EB5500518776 /* Frameworks */,
-				A54F19DD1AA7EB5500518776 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A54F19E11AA7EB5500518776 /* PBXTargetDependency */,
-			);
-			name = ExampleTests;
-			productName = ExampleTests;
-			productReference = A54F19DF1AA7EB5500518776 /* ExampleTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -168,10 +115,6 @@
 				TargetAttributes = {
 					A54F19C51AA7EB5500518776 = {
 						CreatedOnToolsVersion = 6.1.1;
-					};
-					A54F19DE1AA7EB5500518776 = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = A54F19C51AA7EB5500518776;
 					};
 				};
 			};
@@ -189,7 +132,6 @@
 			projectRoot = "";
 			targets = (
 				A54F19C51AA7EB5500518776 /* Example */,
-				A54F19DE1AA7EB5500518776 /* ExampleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -205,13 +147,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A54F19DD1AA7EB5500518776 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -222,26 +157,11 @@
 				A54F19D21AA7EB5500518776 /* ViewController.m in Sources */,
 				A54F19CF1AA7EB5500518776 /* AppDelegate.m in Sources */,
 				A54F19CC1AA7EB5500518776 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A54F19DB1AA7EB5500518776 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A54F19E61AA7EB5500518776 /* ExampleTests.m in Sources */,
+				A52D9D9C1AA7FBB500010F23 /* AGEqualizerIndicatorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		A54F19E11AA7EB5500518776 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A54F19C51AA7EB5500518776 /* Example */;
-			targetProxy = A54F19E01AA7EB5500518776 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A54F19D31AA7EB5500518776 /* Main.storyboard */ = {
@@ -361,40 +281,6 @@
 			};
 			name = Release;
 		};
-		A54F19ED1AA7EB5500518776 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = ExampleTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
-			};
-			name = Debug;
-		};
-		A54F19EE1AA7EB5500518776 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = ExampleTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -414,14 +300,7 @@
 				A54F19EB1AA7EB5500518776 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		A54F19EC1AA7EB5500518776 /* Build configuration list for PBXNativeTarget "ExampleTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A54F19ED1AA7EB5500518776 /* Debug */,
-				A54F19EE1AA7EB5500518776 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "AGEqualizerIndicatorView.h"
 
 @interface ViewController ()
+
+@property (weak, nonatomic) IBOutlet AGEqualizerIndicatorView *equalizerIndicatorView;
 
 @end
 
@@ -16,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self.equalizerIndicatorView startAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
