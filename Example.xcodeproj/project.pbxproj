@@ -45,6 +45,7 @@
 		A54F19BD1AA7EB5500518776 = {
 			isa = PBXGroup;
 			children = (
+				A5B0CBBD1AA8291500BC5B68 /* AGEqualizerIndicatorView */,
 				A54F19C81AA7EB5500518776 /* Example */,
 				A54F19C71AA7EB5500518776 /* Products */,
 			);
@@ -68,8 +69,6 @@
 				A54F19D31AA7EB5500518776 /* Main.storyboard */,
 				A54F19D61AA7EB5500518776 /* Images.xcassets */,
 				A54F19D81AA7EB5500518776 /* LaunchScreen.xib */,
-				A52D9D9A1AA7FBB500010F23 /* AGEqualizerIndicatorView.h */,
-				A52D9D9B1AA7FBB500010F23 /* AGEqualizerIndicatorView.m */,
 				A54F19C91AA7EB5500518776 /* Supporting Files */,
 			);
 			path = Example;
@@ -82,6 +81,16 @@
 				A54F19CB1AA7EB5500518776 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A5B0CBBD1AA8291500BC5B68 /* AGEqualizerIndicatorView */ = {
+			isa = PBXGroup;
+			children = (
+				A52D9D9A1AA7FBB500010F23 /* AGEqualizerIndicatorView.h */,
+				A52D9D9B1AA7FBB500010F23 /* AGEqualizerIndicatorView.m */,
+			);
+			name = AGEqualizerIndicatorView;
+			path = Example;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

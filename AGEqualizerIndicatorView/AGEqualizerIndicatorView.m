@@ -56,12 +56,12 @@
 
 - (void)setBpm:(NSNumber *)bpm {
     _bpm = [NSNumber numberWithFloat:MIN(160, MAX(60, [bpm floatValue]))];
-    // reset the animation cycle
+    // TODO: reset the animation cycle
 }
 
 - (void)setBarPositions:(NSArray *)barPositions {
     _barPositions = barPositions;
-    // redraw the bars and reset the animation cycle
+    // TODO: redraw the bars and reset the animation cycle
 }
 
 - (void)generateBars {
