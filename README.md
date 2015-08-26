@@ -27,3 +27,7 @@ AGEqualizerIndicatorView is supported on iOS 8.0+ and requires ARC.
 ## Credits
 
 AGEqualizerIndicatorView was originally designed and developed by [Alex Givens](http://alexgivens.com) for the [Color Myx](https://itunes.apple.com/us/app/color-myx/id937256071?mt=8) music player. AGEqualizerIndicatorView resides under the [MIT License](https://github.com/AlexGivens/AGEqualizerIndicatorView/blob/master/LICENSE).
+
+# OS X
+
+AGEqualizerIndicator view is iOS-only. If you're looking for an OS X-compatible fork, check out [CMEqualizerIndicatorView](https://github.com/connor/CMEqualizerIndicatorView). :hand:
