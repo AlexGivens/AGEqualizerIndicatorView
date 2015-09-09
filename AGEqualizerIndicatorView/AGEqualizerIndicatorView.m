@@ -1,28 +1,49 @@
+// AGEqualizerIndicatorView.m
 //
-//  AGEqualizerIndicatorView.m
+// Copyright (c) 2015 Alex Givens (http://alexgivens.com/
 //
-//  Created by Alexander Givens on 9/2/14.
-//  Copyright (c) 2014 Alex Givens. All rights reserved.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 #import "AGEqualizerIndicatorView.h"
 
-#define kEqualizerBarPadding 1.5
-#define kEqualizerAnimationDuration 0.25
+#define kBarImageViewKey            @"barImageViewKey"
+#define kBarAnimationDurationKey    @"barAnimationDurationKey"
 
-@interface AGEqualizerIndicatorView()
+#define kEqualizerMinNumBars        @1
+#define kEqualizerMaxNumBars        @6
+#define kEqualizerMinBPM            @60
+#define kEqualizerMaxBPM            @160
+#define kEqualizerMinBarSpacing     @1
+#define kEqualizerMaxBarSpacing     @5
 
-@property (nonatomic, strong) NSArray *barArray;
-@property (nonatomic, strong) NSTimer *timer;
+#define ARC4RANDOM_MAX 0x100000000
 
-@end
-
-@implementation AGEqualizerIndicatorView
+@implementation AGEqualizerIndicatorView {
+    NSArray *defaultBarAnimationDurations;
+    NSMutableArray *bars;
+    CGFloat pauseHeight;
+}
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setDefaultValues];
+        [self initialize];
         [self generateBars];
     }
     return self;
@@ -31,147 +52,196 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self setDefaultValues];
+        [self initialize];
         [self generateBars];
     }
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame barPositions:(NSArray *)barPositions BPM:(NSNumber *)bpm {
+- (id)initWithFrame:(CGRect)frame numberOfBars:(NSInteger)numberOfBars barSpacing:(NSInteger)barSpacing BPM:(NSInteger)bpm {
     self = [super initWithFrame:frame];
     if (self) {
-        _bpm = bpm;
-        _barPositions = barPositions;
+        [self initialize];
+        _numberOfBars = MIN([kEqualizerMaxNumBars integerValue], MAX([kEqualizerMinNumBars integerValue], numberOfBars));
+        _barSpacing = MIN([kEqualizerMaxBarSpacing floatValue], MAX([kEqualizerMinBarSpacing floatValue], barSpacing));
+        _bpm = MIN([kEqualizerMaxBPM integerValue], MAX([kEqualizerMinBPM integerValue], bpm));
         [self generateBars];
     }
     return self;
 }
 
-- (void)setDefaultValues {
-    _bpm = @100;
-    _barPositions = @[@0.7,
-                      @0.8,
-                      @0.3];
+- (void)initialize {
+    
+    NSMutableArray *tempDefaultBarAnimationDurations = [NSMutableArray arrayWithCapacity:6];
+    for (int idx=0; idx < 6; idx++) {
+        double randomDuration = ((double)arc4random() / ARC4RANDOM_MAX) * (1.1 - 0.7) + 0.7;
+        [tempDefaultBarAnimationDurations addObject:[NSNumber numberWithDouble:randomDuration]];
+    }
+    defaultBarAnimationDurations = [NSArray arrayWithArray:tempDefaultBarAnimationDurations];
+    
+    _numberOfBars = 3;
+    _barSpacing = 1;
+    _bpm = 100;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
 }
 
-- (void)setBpm:(NSNumber *)bpm {
-    _bpm = [NSNumber numberWithFloat:MIN(160, MAX(60, [bpm floatValue]))];
-    // TODO: reset the animation cycle
+#pragma mark - Property Setter Overrides
+
+- (void)setNumberOfBars:(NSInteger)numberOfBars {
+    if (numberOfBars == _numberOfBars) return;
+    _numberOfBars = MIN([kEqualizerMaxNumBars integerValue], MAX([kEqualizerMinNumBars integerValue], numberOfBars));
+    [self generateBars];
 }
 
-- (void)setBarPositions:(NSArray *)barPositions {
-    _barPositions = barPositions;
-    // TODO: redraw the bars and reset the animation cycle
+- (void)setBarSpacing:(CGFloat)barSpacing {
+    if (barSpacing == _barSpacing) return;
+    _barSpacing = MIN([kEqualizerMaxBarSpacing floatValue], MAX([kEqualizerMinBarSpacing floatValue], barSpacing));
+    [self generateBars];
 }
+
+- (void)setBpm:(NSInteger)bpm {
+    if (bpm == _bpm) return;
+    _bpm = MIN([kEqualizerMaxBPM integerValue], MAX([kEqualizerMinBPM integerValue], bpm));
+    [self generateBars];
+}
+
+- (void)setTintColor:(UIColor *)tintColor {
+    [super setTintColor:tintColor];
+    [self generateBars];
+}
+
+#pragma mark - Bar Generation
 
 - (void)generateBars {
     
-    NSMutableArray *tempBarArray = [NSMutableArray arrayWithCapacity:self.barPositions.count];
-    float barWidth = (self.bounds.size.width - (kEqualizerBarPadding * 3)) / self.barPositions.count;
+    if (bars) [self removeAllBars];
     
-    for (int idx=0; idx < self.barPositions.count; idx++)  {
+    bars = [NSMutableArray arrayWithCapacity:_numberOfBars];
+    float cumulativeSpacing = _barSpacing * (_numberOfBars - 1);
+    float barWidth = (self.bounds.size.width - cumulativeSpacing) / _numberOfBars;
+    
+    for (int idx=0; idx < _numberOfBars; idx++)  {
         
-        float barXCoordinate = idx * barWidth + idx * kEqualizerBarPadding;
+        float barXCoordinate = (idx * barWidth) + (idx * _barSpacing);
         CGRect barFrame = CGRectMake(barXCoordinate, 0, barWidth, 0);
+        UIImageView *barImageView = [[UIImageView alloc] initWithFrame:barFrame];
+        barImageView.image = [self imageWithColor:self.tintColor size:CGSizeMake(1, 1)];
         
-        UIImageView *barView = [[UIImageView alloc] initWithFrame:barFrame];
-        barView.image = [self imageWithColor:self.tintColor size:CGSizeMake(1, 1)];
-        
-        [self addSubview:barView];
-        
-        [tempBarArray addObject:barView];
+        [self addSubview:barImageView];
+        NSDictionary *barDict = @{kBarImageViewKey:barImageView,
+                                  kBarAnimationDurationKey: [defaultBarAnimationDurations objectAtIndex:idx]};
+        [bars addObject:barDict];
     }
     
-    _barArray = [NSArray arrayWithArray:tempBarArray];
+    self.transform = CGAffineTransformMakeRotation(M_PI_2*2);
     
-    CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2*2);
-    self.transform = transform;
+    pauseHeight = self.bounds.size.height / 3.5;
 }
+
+#pragma mark - Animation methods
 
 - (void)startAnimated:(BOOL)animated {
     
-    if (!animated) [self setAllBarsAtPauseHeights];
-    
-    if (![_timer isValid]){
-        _timer = [NSTimer scheduledTimerWithTimeInterval:kEqualizerAnimationDuration
-                                                  target:self
-                                                selector:@selector(ticker)
-                                                userInfo:nil
-                                                 repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    for (NSDictionary *barDict in bars) {
+        
+        UIImageView *barImageView = [barDict objectForKey:kBarImageViewKey];
+        NSNumber *barAnimationDuration = [barDict objectForKey:kBarAnimationDurationKey];
+        NSTimeInterval duration = [barAnimationDuration doubleValue];
+        double randomDelay = ((double)arc4random() / ARC4RANDOM_MAX) * (0.2);
+        
+        [UIView animateKeyframesWithDuration:duration
+                                       delay:randomDelay
+                                     options: 0
+                                  animations:^{
+                                      [UIView addKeyframeWithRelativeStartTime:0.0
+                                                              relativeDuration:0.5
+                                                                    animations:^{
+                                                                        [self setBar:barImageView atHeight:self.bounds.size.height];
+                                                                    }];
+                                      [UIView addKeyframeWithRelativeStartTime:0.5
+                                                              relativeDuration:0.5
+                                                                    animations:^{
+                                                                        [self setBar:barImageView atHeight:pauseHeight];
+                                                                    }];
+                                  } completion:^(BOOL finished) {
+                                      [UIView animateKeyframesWithDuration:duration
+                                                                     delay:randomDelay
+                                                                   options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat
+                                                                animations:^{
+                                                                    [UIView addKeyframeWithRelativeStartTime:0.0
+                                                                                            relativeDuration:0.5
+                                                                                                  animations:^{
+                                                                                                      [self setBar:barImageView atHeight:self.bounds.size.height];
+                                                                                                  }];
+                                                                    [UIView addKeyframeWithRelativeStartTime:0.5
+                                                                                            relativeDuration:0.5
+                                                                                                  animations:^{
+                                                                                                      [self setBar:barImageView atHeight:pauseHeight];
+                                                                                                  }];
+                                                                } completion:nil];
+                                  }];
     }
 }
 
 - (void)pauseAnimated:(BOOL)animated {
-    [self killTimers];
+    [self removeAllBarAnimations];
     
     if (animated) {
-        [UIView animateWithDuration:kEqualizerAnimationDuration
+        [UIView animateWithDuration:0.25
                          animations: ^{
-                             [self setAllBarsAtPauseHeights];
+                             [self setAllBarsAtHeight:pauseHeight];
                          }];
     } else {
-        [self setAllBarsAtPauseHeights];
+        [self setAllBarsAtHeight:pauseHeight];
     }
 }
 
 - (void)stopAnimated:(BOOL)animated {
-    [self killTimers];
-
+    [self removeAllBarAnimations];
+    
     if (animated) {
-        [UIView animateWithDuration:kEqualizerAnimationDuration
+        [UIView animateWithDuration:0.25
                          animations: ^{
-                             [self setAllBarsAtZero];
+                             [self setAllBarsAtHeight:0.0];
                          }];
     } else {
-        [self setAllBarsAtZero];
+        [self setAllBarsAtHeight:0.0];
     }
 }
 
-- (void)ticker {
-    
-    [UIView animateWithDuration:kEqualizerAnimationDuration
-                     animations:^{
-                         
-                         for (UIImageView *barView in _barArray) {
-                             
-                             CGRect rect = barView.frame;
-                             int frameHeight = self.frame.size.height;
-                             int baselineHeight = frameHeight * 0.2;
-                             int modifiedHeight = baselineHeight + (arc4random() % frameHeight * 0.8 + 1);
-                             rect.size.height = modifiedHeight;
-                             barView.frame = rect;
-                             
-                         }
-                     }];
-}
+#pragma mark - Utility Methods
 
-- (void)setAllBarsAtZero {
-    for (UIImageView *barView in _barArray) {
-        CGRect rect = barView.frame;
-        rect.size.height = 0;
-        barView.frame = rect;
+- (void)setAllBarsAtHeight:(NSInteger)height {
+    for (NSDictionary *barDict in bars) {
+        UIImageView *barImageView = [barDict objectForKey:kBarImageViewKey];
+        [self setBar:barImageView atHeight:height];
     }
 }
 
-- (void)setAllBarsAtPauseHeights {
-    
-    for (int idx = 0; idx < self.barPositions.count; idx++) {
-        
-        UIImageView *barView = [_barArray objectAtIndex:idx];
-        NSNumber *pausePosition = [_barPositions objectAtIndex:idx];
-        
-        CGRect rect = barView.frame;
-        rect.size.height = [pausePosition floatValue] * self.bounds.size.height;
-        barView.frame = rect;
-        
+- (void)setBar:(UIImageView *)bar atHeight:(NSInteger)height {
+    CGRect frame = bar.frame;
+    frame.size.height = height;
+    bar.frame = frame;
+}
+
+- (void)removeAllBarAnimations {
+    for (NSDictionary *barDict in bars) {
+        UIImageView *barImageView = [barDict objectForKey:kBarImageViewKey];
+        if (!CGRectEqualToRect([barImageView.layer.presentationLayer frame], CGRectZero)) {
+            barImageView.frame = [[barImageView.layer presentationLayer] frame];
+        }
+        [barImageView.layer removeAllAnimations];
     }
 }
 
-- (void)killTimers {
-    if ([_timer isValid]) {
-        [_timer invalidate];
-        _timer = nil;
+- (void)removeAllBars {
+    [self removeAllBarAnimations];
+    for (NSDictionary *barDict in bars) {
+        UIImageView *barImageView = [barDict objectForKey:kBarImageViewKey];
+        [barImageView removeFromSuperview];
+        barImageView = nil;
     }
 }
 
@@ -185,20 +255,24 @@
     return image;
 }
 
-
 #if TARGET_INTERFACE_BUILDER
-
 - (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
     
+    float cumulativeSpacing = _barSpacing * (_numberOfBars - 1);
+    float barWidth = (self.bounds.size.width - cumulativeSpacing) / _numberOfBars;
+    float tempPauseHeight = self.bounds.size.height / 3.5;
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGRect myFrame = self.bounds;
-    CGContextSetLineWidth(context, 1.0);
-    CGRectInset (myFrame, 1.0, 1.0);
-    [self.tintColor set];
-    UIRectFrame(myFrame);
+    CGContextSetFillColorWithColor(context, self.tintColor.CGColor);
     
-}
+    for (int idx=0; idx < _numberOfBars; idx++)  {
+        float randomHeight = ((double)arc4random() / ARC4RANDOM_MAX) * (self.bounds.size.height - tempPauseHeight) + tempPauseHeight;
+        float barXCoordinate = (idx * barWidth) + (idx * _barSpacing);
+        CGRect rectangle = CGRectMake(barXCoordinate, self.bounds.size.height, barWidth, -randomHeight);
+        CGContextFillRect(context, rectangle);
 
+    }
+}
 #endif
 
 @end

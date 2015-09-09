@@ -1,33 +1,49 @@
 # AGEqualizerIndicatorView
-AGEqualizerIndicatorView is an iOS library used to visually indicate the play, pause, or stop state of audio. AGEqualizerIndicatorView is designable in Interface Builder for quicker mockups.
+AGEqualizerIndicatorView is an iOS library used to visually indicate the play, pause, or stop state of audio. AGEqualizerIndicatorView is also designable in Interface Builder for easy configuration and prototyping.
 
-## Getting Started
+## Installation
 
-- [Download AGEqualizerIndicatorView](https://github.com/alexgivens/AGEqualizerIndicatorView/archive/master.zip) and try the included example project.
-- Copy the "AGEqualizerIndicatorView" directory into your project
-- Import the header file at the top of your document, like so: ```#import "AGEqualizerIndicatorView.h"```
+### CocoaPods
 
-## Using AGEqualizerIndicatorView
+The recommended method of installation is through [CocoaPods](http://cocoapods.org). Add the following line to your Podfile, then run `pod install`.
 
-Quick demonstration.
+#### Podfile
+
+```ruby
+pod 'AGEqualizerIndicatorView', :git => 'https://github.com/AlexGivens/AGEqualizerIndicatorView.git'
+```
+
+### Manual Installation
+
+1. [Download AGEqualizerIndicatorView](https://github.com/alexgivens/AGEqualizerIndicatorView/archive/master.zip)
+2. Drag the `AGEqualizerIndicatorView` directory into your Xcode project, and ensure the files are copied into your project's directory.
+
+## Basic Example
+
+AGEqualizerIndicatorView is simple to use, and can easily mimic the state of audio playback.
 
 ```objective-c
-AGEqualizerIndicatorView *equalizerIndicatorView = [[AGEqualizerIndicatorView alloc] initWithFrame: CGRectMake(0,0,16,16)];
+#import "AGEqualizerIndicatorView.h"
+
+...
+
+AGEqualizerIndicatorView *equalizerIndicatorView = [[AGEqualizerIndicatorView alloc] initWithFrame: CGRectMake(0,0,24,18)];
+
 [equalizerIndicatorView startAnimated:YES]; // audio begins playing
 [equalizerIndicatorView pauseAnimated:YES]; // audio is paused
 [equalizerIndicatorView stopAnimated:YES]; // audio ends playback
 ```
 
-A fuller set of documentation is coming soon, describing how to implement a set of equalizer indicators in a UITableView drawn in a Storyboard.
+## Example Project
 
-## Requirements
+An example project is included to showcase the equalizer indicator in a storyboard.
 
-AGEqualizerIndicatorView is supported on iOS 8.0+ and requires ARC. 
+## Device Support
 
-## Credits
+AGEqualizerIndicatorView currenlty supports iOS 7.0+. **If you're looking for an OS X-compatible fork, check out [CMEqualizerIndicatorView](https://github.com/connor/CMEqualizerIndicatorView).** :hand:
 
-AGEqualizerIndicatorView was originally designed and developed by [Alex Givens](http://alexgivens.com) for the [Color Myx](https://itunes.apple.com/us/app/color-myx/id937256071?mt=8) music player. AGEqualizerIndicatorView resides under the [MIT License](https://github.com/AlexGivens/AGEqualizerIndicatorView/blob/master/LICENSE).
+## About
 
-# OS X
+AGEqualizerIndicatorView is created and maintained by [Alex Givens](https://github.com/AlexGivens). 
 
-AGEqualizerIndicator view is iOS-only. If you're looking for an OS X-compatible fork, check out [CMEqualizerIndicatorView](https://github.com/connor/CMEqualizerIndicatorView). :hand:
+AGEqualizerIndicatorView is released under the MIT license. See LICENSE for details.

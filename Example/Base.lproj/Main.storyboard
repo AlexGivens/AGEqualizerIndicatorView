@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D87h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,19 +17,67 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arl-I9-UAL" customClass="AGEqualizerIndicatorView">
-                                <rect key="frame" x="288" y="288" width="24" height="24"/>
+                                <rect key="frame" x="288" y="291" width="24" height="18"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" red="0.30793815559440557" green="0.94635052447552448" blue="0.82249781468531469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.98431372549019602" green="0.16862745098039217" blue="0.41176470588235292" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="02q-RI-gx4"/>
+                                    <constraint firstAttribute="height" constant="18" id="02q-RI-gx4"/>
                                     <constraint firstAttribute="width" constant="24" id="cMK-jR-hIg"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PwW-0r-0pW">
+                                <rect key="frame" x="176" y="526" width="64" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="Ud8-qX-Qn3"/>
+                                    <constraint firstAttribute="height" constant="30" id="p7z-fq-LpI"/>
+                                </constraints>
+                                <state key="normal" title="Start">
+                                    <color key="titleColor" red="0.98431372549999996" green="0.16862745100000001" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressStartButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g2v-uq-gcD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOK-qb-afr">
+                                <rect key="frame" x="268" y="526" width="64" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="nZu-to-ARf"/>
+                                    <constraint firstAttribute="width" constant="64" id="pkY-IC-DXf"/>
+                                </constraints>
+                                <state key="normal" title="Pause">
+                                    <color key="titleColor" red="0.98431372549999996" green="0.16862745100000001" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressPauseButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1rF-1a-IEo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dqK-1s-cQS">
+                                <rect key="frame" x="360" y="526" width="64" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="2qE-iZ-Ons"/>
+                                    <constraint firstAttribute="height" constant="30" id="3OB-ad-W6n"/>
+                                </constraints>
+                                <state key="normal" title="Stop">
+                                    <color key="titleColor" red="0.98431372549999996" green="0.16862745100000001" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressStopButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9R2-ET-7Ia"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="arl-I9-UAL" secondAttribute="centerY" id="AEr-iF-tAp"/>
                             <constraint firstAttribute="centerX" secondItem="arl-I9-UAL" secondAttribute="centerX" id="FXe-pB-Abd"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="dOK-qb-afr" secondAttribute="bottom" constant="44" id="Wqo-8I-WAZ"/>
+                            <constraint firstItem="dqK-1s-cQS" firstAttribute="leading" secondItem="dOK-qb-afr" secondAttribute="trailing" constant="28" id="doJ-7z-SRS"/>
+                            <constraint firstItem="dOK-qb-afr" firstAttribute="centerY" secondItem="dqK-1s-cQS" secondAttribute="centerY" id="kyh-eh-6O9"/>
+                            <constraint firstItem="dOK-qb-afr" firstAttribute="leading" secondItem="PwW-0r-0pW" secondAttribute="trailing" constant="28" id="qiT-f5-VeR"/>
+                            <constraint firstAttribute="centerX" secondItem="dOK-qb-afr" secondAttribute="centerX" id="xQj-yc-HUP"/>
+                            <constraint firstItem="dOK-qb-afr" firstAttribute="centerY" secondItem="PwW-0r-0pW" secondAttribute="centerY" id="zEx-qN-Wze"/>
                         </constraints>
                     </view>
                     <connections>
@@ -38,6 +86,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="691" y="686"/>
         </scene>
     </scenes>
 </document>
