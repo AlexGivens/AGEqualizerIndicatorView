@@ -1,11 +1,11 @@
 # AGEqualizerIndicatorView
-AGEqualizerIndicatorView is an iOS library used to visually indicate the play, pause, or stop state of audio. AGEqualizerIndicatorView is also designable in Interface Builder for easy configuration and prototyping.
+AGEqualizerIndicatorView visually indicates the play, pause, or stop state of audio. AGEqualizerIndicatorView is designable in Interface Builder for easy configuration and prototyping.
 
 ## Installation
 
 ### CocoaPods
 
-The recommended method of installation is through [CocoaPods](http://cocoapods.org). Add the following line to your Podfile, then run `pod install`.
+The recommended method of installation is through [CocoaPods](http://cocoapods.org). Add the following to your Podfile.
 
 #### Podfile
 
@@ -40,10 +40,10 @@ An example project is included to showcase the equalizer indicator in a storyboa
 
 ## Device Support
 
-AGEqualizerIndicatorView currenlty supports iOS 7.0+. **If you're looking for an OS X-compatible fork, check out [CMEqualizerIndicatorView](https://github.com/connor/CMEqualizerIndicatorView).** :hand:
+AGEqualizerIndicatorView currently supports iOS 7.0+ and tvOS 9.0+. **If you're looking for an OS X-compatible fork, check out [CMEqualizerIndicatorView](https://github.com/connor/CMEqualizerIndicatorView).** :hand:
 
 ## About
 
-AGEqualizerIndicatorView is created and maintained by [Alex Givens](https://github.com/AlexGivens). 
+AGEqualizerIndicatorView is created and maintained by [Alex Givens](https://github.com/AlexGivens).
 
 AGEqualizerIndicatorView is released under the MIT license. See LICENSE for details.

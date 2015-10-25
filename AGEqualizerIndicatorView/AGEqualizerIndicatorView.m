@@ -82,9 +82,6 @@
     _numberOfBars = 3;
     _barSpacing = 1;
     _bpm = 100;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
 }
 
 #pragma mark - Property Setter Overrides
@@ -270,7 +267,6 @@
         float barXCoordinate = (idx * barWidth) + (idx * _barSpacing);
         CGRect rectangle = CGRectMake(barXCoordinate, self.bounds.size.height, barWidth, -randomHeight);
         CGContextFillRect(context, rectangle);
-
     }
 }
 #endif
