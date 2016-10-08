@@ -27,7 +27,7 @@
 
 @property (weak, nonatomic) IBOutlet AGEqualizerIndicatorView *equalizerIndicatorView;
 
-- (IBAction)didPressStartButton:(id)sender;
+- (IBAction)didPressPlayButton:(id)sender;
 - (IBAction)didPressPauseButton:(id)sender;
 - (IBAction)didPressStopButton:(id)sender;
 
@@ -41,7 +41,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.equalizerIndicatorView startAnimated:YES];
+    [self.equalizerIndicatorView playAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,8 +49,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)didPressStartButton:(id)sender {
-    [self.equalizerIndicatorView startAnimated:YES];
+- (IBAction)didPressPlayButton:(id)sender {
+    [self.equalizerIndicatorView playAnimated:YES];
 }
 
 - (IBAction)didPressPauseButton:(id)sender {

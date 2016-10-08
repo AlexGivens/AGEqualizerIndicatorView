@@ -115,6 +115,8 @@
     
     if (bars) [self removeAllBars];
     
+    [self layoutIfNeeded];
+    
     bars = [NSMutableArray arrayWithCapacity:_numberOfBars];
     float cumulativeSpacing = _barSpacing * (_numberOfBars - 1);
     float barWidth = (self.bounds.size.width - cumulativeSpacing) / _numberOfBars;
@@ -123,6 +125,7 @@
         
         float barXCoordinate = (idx * barWidth) + (idx * _barSpacing);
         CGRect barFrame = CGRectMake(barXCoordinate, 0, barWidth, 0);
+        
         UIImageView *barImageView = [[UIImageView alloc] initWithFrame:barFrame];
         barImageView.image = [self imageWithColor:self.tintColor size:CGSizeMake(1, 1)];
         
@@ -139,7 +142,7 @@
 
 #pragma mark - Animation methods
 
-- (void)startAnimated:(BOOL)animated {
+- (void)playAnimated:(BOOL)animated {
     
     for (NSDictionary *barDict in bars) {
         
@@ -265,7 +268,7 @@
     for (int idx=0; idx < _numberOfBars; idx++)  {
         float randomHeight = ((double)arc4random() / ARC4RANDOM_MAX) * (self.bounds.size.height - tempPauseHeight) + tempPauseHeight;
         float barXCoordinate = (idx * barWidth) + (idx * _barSpacing);
-        CGRect rectangle = CGRectMake(barXCoordinate, self.bounds.size.height, barWidth, -randomHeight);
+        CGRect rectangle = CGRectMake(barXCoordinate, 0, barWidth, randomHeight);
         CGContextFillRect(context, rectangle);
     }
 }

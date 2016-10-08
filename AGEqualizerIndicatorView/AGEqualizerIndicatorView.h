@@ -49,21 +49,21 @@ IB_DESIGNABLE
 - (id)initWithFrame:(CGRect)frame numberOfBars:(NSInteger)numberOfBars barSpacing:(NSInteger)barSpacing BPM:(NSInteger)bpm;
 
 /**
- * Begin the equalizer bouncing animation.
+ * Begin the equalizer play animation.
  *
  * @param animated Optionally animate into position.
  */
-- (void)startAnimated:(BOOL)animated;
+- (void)playAnimated:(BOOL)animated;
 
 /**
- * Pause the equalizer bouncing animation.
+ * Pause the equalizer animation in a resting position.
  *
  * @param animated Optionally animate into position.
  */
 - (void)pauseAnimated:(BOOL)animated;
 
 /**
- * Stop the equalizer bouncing animation.
+ * Hide the equalizer.
  *
  * @param animated Optionally animate into position.
  */
